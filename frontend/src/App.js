@@ -8,9 +8,10 @@ import Register from './pages/Register/Register';
 import Login from './pages/Login/Login';
 import Authenticate from './pages/Authenticate/Authenticate';
 import Activate from './pages/Activate/Activate';
-const isAuth = true;
+import Rooms from './pages/Rooms/Rooms';
+const isAuth = false;
 const user = {
-  activated:true,
+  activated:false,
 }
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
         <Route path="/" element={<GuestRoute><Home /></GuestRoute>} />
         <Route path="/authenticate" element={<GuestRoute><Authenticate /></GuestRoute>} />
         <Route path="/activate" element={<SemiProtectedRoute><Activate /></SemiProtectedRoute>} />
+        <Route path="/rooms" element={<ProtectedRoute><Rooms /></ProtectedRoute>} />
       </Routes>
     </BrowserRouter>
   );
@@ -44,6 +46,15 @@ const SemiProtectedRoute = ({ children }) => {
   ) : isAuth && !user.activated ? (
     children
   ) : ( <Navigate to="/rooms" state={{ from: location }} />);
+};
+const ProtectedRoute = ({ children }) => {
+  const location = useLocation();
+
+  return !isAuth ? (
+    <Navigate to="/" state={{ from: location }} />
+  ) : isAuth && !user.activated ? (
+    <Navigate to="/activate" state={{ from: location }} />
+  ) : (children);
 };
 export default App;
 
