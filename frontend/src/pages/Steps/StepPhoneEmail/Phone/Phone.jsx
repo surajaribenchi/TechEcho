@@ -1,10 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react';
+import Card from '../../../../components/shared/Card/Card';
+import Button from '../../../../components/shared/Button/Button';
+import styles from '../StepPhoneEmail.module.css';
 
 const Phone = () => {
   return (
-    <div>
-      This is Phone component 
-    </div>
+    <Card title="Enter your Phone Number" icon="phone">
+      <div>
+        <Button text="Next"/>
+      </div>
+    </Card>
   )
 }
 
